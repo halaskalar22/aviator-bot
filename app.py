@@ -2,7 +2,7 @@ import os
 import telebot
 from flask import Flask, request
 
-TOKEN = "8770467906:AAGSR4BWwW6FT-kXyJrg3JAtK54Xk5jr1Pc"
+TOKEN = "8770467906:AAFnvSEoS8A6FlCchOOJAsl5WhHeZ-4fOaU"
 bot = telebot.TeleBot(TOKEN)
 
 app = Flask(__name__)
@@ -21,16 +21,16 @@ def index():
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
     text = (
-        "<b>🔥 AVİATOR ÖZEL YAZILIM & HİLE SİSTEMİ 🔥</b>\n\n"
-        "<b>⚡ Kayıp Devrine Son! En güncel oran analizleri, gizli sinyal taktikleri ve VIP yazılım güncellemeleri burada.</b>\n\n"
-        "<b>📍 Resmi Kanal: @aviator_yazilim</b>\n"
-        "<b>💬 7/24 Destek & Satış: @DarkjokerAviator</b>\n\n"
-        "<b>👇 Hemen aşağıdaki butonlardan kanalımıza katılabilir veya bilgi alabilirsin!</b>"
+        "<b>🔥 AVİATOR ÖZEL YAZILIM & HİLE SİSTEMİ 🔥\n\n"
+        "⚡ Kayıp Devrine Son! En güncel oran analizleri, gizli sinyal taktikleri ve VIP yazılım güncellemeleri burada.\n\n"
+        "📍 Resmi Kanal: @aviator_yazilim\n"
+        "💬 7/24 Destek & Satış: @DarkjokerAviator\n\n"
+        "👇 Hemen aşağıdaki butonlardan kanalımıza katılabilir veya bilgi alabilirsin!</b>"
     )
     
     markup = telebot.types.InlineKeyboardMarkup()
-    btn1 = telebot.types.InlineKeyboardButton("<b>📢 Resmi Kanalımıza Katıl</b>", url="https://t.me/aviator_yazilim")
-    btn2 = telebot.types.InlineKeyboardButton("<b>💬 7/24 Destek & Satış Hattı</b>", url="https://t.me/DarkjokerAviator")
+    btn1 = telebot.types.InlineKeyboardButton("📢 Resmi Kanalımıza Katıl", url="https://t.me/aviator_yazilim")
+    btn2 = telebot.types.InlineKeyboardButton("💬 7/24 Destek & Satış Hattı", url="https://t.me/DarkjokerAviator")
     markup.add(btn1)
     markup.add(btn2)
     
