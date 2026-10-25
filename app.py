@@ -1,4 +1,5 @@
 import os
+import sys
 import telebot
 import traceback
 from flask import Flask, request
@@ -12,11 +13,15 @@ app = Flask(__name__)
 def webhook():
     try:
         json_string = request.get_data().decode('utf-8')
+        print("GELEN GÜNCELLEME:", json_string)
+        sys.stdout.flush()
+        
         update = telebot.types.Update.de_json(json_string)
         bot.process_new_updates([update])
         return "OK", 200
     except Exception as e:
-        print("HATA OLUŞTU:", traceback.format_exc())
+        print("WEBHOOK HATASI:", traceback.format_exc())
+        sys.stdout.flush()
         return "Error", 500
 
 @app.route('/')
@@ -25,21 +30,30 @@ def index():
 
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
-    text = (
-        "🔥 AVİATOR ÖZEL YAZILIM & HİLE SİSTEMİ 🔥\n\n"
-        "⚡ Kayıp Devrine Son! En güncel oran analizleri, gizli sinyal taktikleri ve VIP yazılım güncellemeleri burada.\n\n"
-        "📍 Resmi Kanal: @aviator_yazilim\n"
-        "💬 7/24 Destek & Satış: @DarkjokerAviator\n\n"
-        "👇 Hemen aşağıdaki butonlardan kanalımıza katılabilir veya bilgi alabilirsin!"
-    )
-    
-    markup = telebot.types.InlineKeyboardMarkup()
-    btn1 = telebot.types.InlineKeyboardButton("📢 Resmi Kanalımıza Katıl", url="https://t.me/aviator_yazilim")
-    btn2 = telebot.types.InlineKeyboardButton("💬 7/24 Destek & Satış Hattı", url="https://t.me/DarkjokerAviator")
-    markup.add(btn1)
-    markup.add(btn2)
-    
-    bot.send_message(message.chat.id, text, reply_markup=markup)
+    try:
+        print(">>> /start komutu tetiklendi, mesaj gönderiliyor...")
+        sys.stdout.flush()
+        
+        text = (
+            "🔥 AVİATOR ÖZEL YAZILIM & HİLE SİSTEMİ 🔥\n\n"
+            "⚡ Kayıp Devrine Son! En güncel oran analizleri, gizli sinyal taktikleri ve VIP yazılım güncellemeleri burada.\n\n"
+            "📍 Resmi Kanal: @aviator_yazilim\n"
+            "💬 7/24 Destek & Satış: @DarkjokerAviator\n\n"
+            "👇 Hemen aşağıdaki butonlardan kanalımıza katılabilir veya bilgi alabilirsin!"
+        )
+        
+        markup = telebot.types.InlineKeyboardMarkup()
+        btn1 = telebot.types.InlineKeyboardButton("📢 Resmi Kanalımıza Katıl", url="https://t.me/aviator_yazilim")
+        btn2 = telebot.types.InlineKeyboardButton("💬 7/24 Destek & Satış Hattı", url="https://t.me/DarkjokerAviator")
+        markup.add(btn1)
+        markup.add(btn2)
+        
+        bot.send_message(message.chat.id, text, reply_markup=markup)
+        print(">>> Mesaj kullanıcıya başarıyla iletildi!")
+        sys.stdout.flush()
+    except Exception as e:
+        print(">>> MESAJ GÖNDERME HATASI:", str(e))
+        sys.stdout.flush()
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
