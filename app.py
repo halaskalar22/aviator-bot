@@ -2,7 +2,7 @@ import os
 import telebot
 from flask import Flask, request
 
-TOKEN = "8770467906:AAFnvSEoS8A6FlCchOOJAsl5WhHeZ-4fOaU"
+TOKEN = "8770467906:AAGSR4BWwW6FT-kXyJrg3JAtK54Xk5jr1Pc"
 bot = telebot.TeleBot(TOKEN)
 
 app = Flask(__name__)
@@ -21,11 +21,11 @@ def index():
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
     text = (
-        "<b>🔥 AVİATOR ÖZEL YAZILIM & HİLE SİSTEMİ 🔥\n\n"
+        "🔥 AVİATOR ÖZEL YAZILIM & HİLE SİSTEMİ 🔥\n\n"
         "⚡ Kayıp Devrine Son! En güncel oran analizleri, gizli sinyal taktikleri ve VIP yazılım güncellemeleri burada.\n\n"
         "📍 Resmi Kanal: @aviator_yazilim\n"
         "💬 7/24 Destek & Satış: @DarkjokerAviator\n\n"
-        "👇 Hemen aşağıdaki butonlardan kanalımıza katılabilir veya bilgi alabilirsin!</b>"
+        "👇 Hemen aşağıdaki butonlardan kanalımıza katılabilir veya bilgi alabilirsin!"
     )
     
     markup = telebot.types.InlineKeyboardMarkup()
