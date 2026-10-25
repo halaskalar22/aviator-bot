@@ -1,5 +1,6 @@
 import os
 import telebot
+import traceback
 from flask import Flask, request
 
 TOKEN = "8770467906:AAGSR4BWwW6FT-kXyJrg3JAtK54Xk5jr1Pc"
@@ -9,10 +10,14 @@ app = Flask(__name__)
 
 @app.route('/webhook', methods=['POST'])
 def webhook():
-    json_string = request.get_data().decode('utf-8')
-    update = telebot.types.Update.de_json(json_string)
-    bot.process_new_updates([update])
-    return "!", 200
+    try:
+        json_string = request.get_data().decode('utf-8')
+        update = telebot.types.Update.de_json(json_string)
+        bot.process_new_updates([update])
+        return "OK", 200
+    except Exception as e:
+        print("HATA OLUŞTU:", traceback.format_exc())
+        return "Error", 500
 
 @app.route('/')
 def index():
