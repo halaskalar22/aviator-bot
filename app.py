@@ -34,7 +34,7 @@ def send_welcome(message):
     markup.add(btn1)
     markup.add(btn2)
     
-    bot.send_message(message.chat.id, text, parse_mode="HTML", reply_markup=markup)
+    bot.send_message(message.chat.id, text, reply_markup=markup)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
